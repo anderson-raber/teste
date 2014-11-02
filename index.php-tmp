@@ -76,30 +76,30 @@ if (isset($session)) {
 	// Create session using saved token or the new one we generated at login
 	$session = new FacebookSession($session->getToken());
 	// Graph API to request user data
-	$request = (new FacebookRequest($session, 'GET', '/me'))->execute();
+	$request  = (new FacebookRequest($session, 'GET', '/me'))->execute();
 	$request2 = (new FacebookRequest($session, 'GET', '/me/picture?type=large&redirect=false'))->execute();
 
 	// Get response as an array
-	$user = $request->getGraphObject()->asArray();
+	$user  = $request->getGraphObject()->asArray();
 	$foto2 = $request2->getGraphObject()->asArray();
 
 	$foto = $foto2->url;
 
 	$usuario = $request->getGraphObject(GraphUser::className());
 
-	$email = $usuario->getProperty('email');
-	$nome = $usuario->getName();
-	$id = $usuario->getId();
+	$email       = $usuario->getProperty('email');
+	$nome        = $usuario->getName();
+	$id          = $usuario->getId();
 	$aniversario = $usuario->getProperty('birthday');
-	$link = $usuario->getLink();
+	$link        = $usuario->getLink();
 
-	echo '<img src="' . $foto . '">';
+	echo '<img src="'.$foto.'">';
 	//echo "<br>" . $foto;
-	echo "<br>" . $email;
-	echo "<br>" . $nome;
-	echo "<br>" . $id;
-	echo "<br>" . $aniversario;
-	echo "<br>" . $link;
+	echo "<br>".$email;
+	echo "<br>".$nome;
+	echo "<br>".$id;
+	echo "<br>".$aniversario;
+	echo "<br>".$link;
 
 	//$valores = "'$id','$nome','$email','$aniversario','$link','$foto'";
 	//cadastra_face("padrao", $valores);
@@ -110,7 +110,7 @@ if (isset($session)) {
 	// Create the logout URL (logout page should destroy the session)
 	$logoutURL = $helper->getLogoutUrl($session, 'http://niobio.cafw.ufsm.br/~grupo01/teste/index.php');
 
-	echo '<br><a href="' . $logoutURL . '">Log out</a>';
+	echo '<br><a href="'.$logoutURL.'">Log out</a>';
 	echo "<br>";
 	/*if (isset($_GET[$logoutURL])){
 	session_unset();
@@ -121,14 +121,14 @@ if (isset($session)) {
 	try {
 		// get all pages which are liked by user
 		$getPages = (new FacebookRequest(
-			$session,
-			'GET',
-			'/me/groups'
-		))->execute()->getGraphObject()->asArray();
+				$session,
+				'GET',
+				'/me/groups'
+			))->execute()->getGraphObject()->asArray();
 		foreach ($getPages['data'] as $key) {
-			echo $key->name . "<br>" . $key->id;
+			echo $key->name."<br>".$key->id;
 			$valores = "'$key->id','$key->name'";
-			cadastra_grupos("usuario_" . $id, $valores, $id);
+			cadastra_grupos("usuario_".$id, $valores, $id);
 			echo "<br><br>";
 
 		}
@@ -147,5 +147,5 @@ if (isset($session)) {
 	// Get login URL
 	$loginUrl = $helper->getLoginUrl($permissions);
 
-	echo '<a href="' . $loginUrl . '">Log in</a>';
+	echo '<a href="'.$loginUrl.'">Log in</a>';
 }

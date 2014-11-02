@@ -22,14 +22,14 @@ function cadastra_grupos($tabela, $valores, $id) {
 	//$c = @conectar();
 	$selecionar = "select * from $tabela where id = '$id'";
 	$resultado2 = conectar()->query($selecionar);
-	$numrow = mysqli_num_rows($resultado2);
+	$numrow     = mysqli_num_rows($resultado2);
 	if ($numrow == 0) {
-		$inserir = "insert into $tabela values (NULL,$valores)";
+		$inserir   = "insert into $tabela values (NULL,$valores)";
 		$resultado = conectar()->query($inserir);
 		if ($resultado == TRUE) {
 			//echo "<br>gravado";
 		} else {
-			echo "<br>erro" . mysql_errno();
+			echo "<br>erro".mysql_errno();
 		}
 	}
 }
@@ -38,7 +38,7 @@ function cadastra_grupos($tabela, $valores, $id) {
 //
 function criar_tabela($id) {
 
-	$criar = "CREATE TABLE usuario_" . $id . " (
+	$criar = "CREATE TABLE usuario_".$id." (
 			  codigo INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 				id VARCHAR(30) NOT NULL,
 				nome VARCHAR(30) NOT NULL
