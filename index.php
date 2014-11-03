@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 include "BancoDados.php";
 require_once ('Facebook/FacebookSession.php');
 require_once ('Facebook/FacebookRedirectLoginHelper.php');
@@ -126,17 +127,21 @@ if (isset($session)) {
 			'/me/groups'
 		))->execute()->getGraphObject()->asArray();
 		foreach ($getPages['data'] as $key) {
-			echo $key->name . "<br>" . $key->id;
-			$valores = "'$key->id','$key->name'";
-			cadastra_grupos("usuario_" . $id, $valores, $id);
-			echo "<br><br>";
+			//echo $key->name . "<br>" . $key->id;
+			?>
+			<input type="checkbox" name="<?=$key->id?>" value="<?=$key->id?>"> <?=utf8_decode($key->name);?><br>
+
+<?php
+$valores = "$key->id,'$key->name'";
+			cadastra_grupos("usuario_" . $id, $valores, $key->id, utf8_encode($key->name));
+			echo "<br>";
 
 		}
 
 		// count all liked pages
-		echo count($getPages['data']);
-		echo "<br>todos seus grupos foram gravados";
-
+		/*echo count($getPages['data']);
+	echo "<br>todos seus grupos foram gravados";
+	 */
 	} catch (FacebookRequestException $e) {
 		echo $e->getMessage();
 	}

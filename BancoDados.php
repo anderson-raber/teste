@@ -1,7 +1,8 @@
 <?php
+ini_set('default_charset', 'utf-8');
+
 function conectar() {
 	$conectar = new mysqli('localhost', 'grupo01', 'sDD48cBUch', 'grupo01');
-
 	if (mysqli_connect_errno()) {
 		die(mysqli_connect_error());
 		exit();
@@ -18,19 +19,22 @@ exit();
 return $conectar;
 }*/
 
-function cadastra_grupos($tabela, $valores, $id) {
+function cadastra_grupos($tabela, $valores, $id, $nome) {
 	//$c = @conectar();
-	$selecionar = "select * from $tabela where id = '$id'";
+	//echo "<br>ID = " . $id;
+
+	$selecionar = "select * from $tabela where id='$id'";
 	$resultado2 = conectar()->query($selecionar);
 	$numrow = mysqli_num_rows($resultado2);
-	if ($numrow == 0) {
+
+	if ($numrow > 0) {
+		//if ($resultado2 == TRUE) {
+		//echo "<br>erro" . mysql_errno();
+
+	} else {
 		$inserir = "insert into $tabela values (NULL,$valores)";
 		$resultado = conectar()->query($inserir);
-		if ($resultado == TRUE) {
-			//echo "<br>gravado";
-		} else {
-			echo "<br>erro" . mysql_errno();
-		}
+
 	}
 }
 
